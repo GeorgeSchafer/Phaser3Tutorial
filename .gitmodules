@@ -1,0 +1,3 @@
+[submodule "js/PhaserHelpers"]
+	path = js/PhaserHelpers
+	url = https://github.com/GeorgeSchafer/PhaserHelpers.git
