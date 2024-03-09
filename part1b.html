@@ -7,15 +7,8 @@
     <link href="./css/styles.css"></style>
 </head>
 <body>
+    <script type="module" src="./js/PhaserHelpers/View.mjs"></script>
     <script type="text/javascript">
-        class View {
-            constructor(width, height)
-            {
-                this.width = width
-                this.height = height
-            }
-        }
-
         class Img {
             constructor(alias, path)
             {
@@ -28,7 +21,7 @@
                 index.load.image(this.alias, this.path)
             }
 
-            create(index, posX, posY)
+            create(index, posX=0, posY=0)
             {
                 index.add.image(posX, posY, this.alias)
             }
@@ -106,7 +99,7 @@
             }
         }
 
-        const assets = './assets/js/'
+        const assets = 'js/assets/'
 
         const view = new View(512,382)
         const elements = {
@@ -117,14 +110,22 @@
             dude: new SpriteSheet('dude', assets + 'dude.png', new SquareFrame(48))
         }
         const background = new Img('sky', assets + 'sky.png')
+        const star = new Img('star', assets + 'star.png')
 
-        const preload = () => {
-            this.load.image(background.alias, background.path)
+        function preload()
+        {
+            background.preload(this)
+            star.preload(this)
         }
-        const create = () => {
-            this.add.image(view.width/2, view.height/2, background.alias)
+        function create()
+        {
+            background.create(this, view.height/2, view.width/2)
+            star.create(this, view.height/2, view.width/2)
         }
-        const update = () => {}
+        function update()
+        {
+
+        }
 
         const sceneA = new Scene(preload, create, update)
         const config = new Config(view, physics.platformer, sceneA)
