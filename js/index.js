@@ -20,7 +20,6 @@ const imgs = {
 }
 
 const dude = new Player(new SpriteSheet('dude', assets + 'dude.png', new Frame(32,48)))
-const sceneA = new Scene(preload, create, update)
 
 function preload()
 {
@@ -44,6 +43,7 @@ function update()
     
 }
 
+const sceneA = new Scene(preload, create, update)
 const config = new Config(view, physics.platformer, sceneA)
 const game = new Phaser.Game(config)
 
