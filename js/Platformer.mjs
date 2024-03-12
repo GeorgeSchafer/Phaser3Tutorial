@@ -6,6 +6,7 @@ import {
     Frame,
     SquareFrame,
     Img,
+    Platform,
     SpriteSheet,
     physics
 } from './PhaserHelpers/Constants.mjs'
@@ -15,7 +16,7 @@ const view = new View(512,382)
 const imgs = {
     background: new Img('sky', assets + 'sky.png'),
     star: new Img('star', assets + 'star.png'),
-    platform: new Img('platform', assets + 'platform.png'),
+    platform: new Platform(new Img('platform', assets + 'platform.png')),
     bomb: new Img('bomb', assets + 'bomb.png'),
 }
 
