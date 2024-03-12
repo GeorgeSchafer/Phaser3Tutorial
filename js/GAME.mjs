@@ -10,8 +10,15 @@ import {
     physics
 } from './PhaserHelpers/Constants.mjs'
 
+
+
+let config
+let game
+let activeScene
 const assets = '../js/assets/'
 const view = new View(512,382)
+const player = new Player(new SpriteSheet('ALIAS', assets + 'FILENAME.png', new Frame(WIDTH,HEIGHT)))
+const sceneA = new Scene(preload, create, update)
 const imgs = {
     background: new Img('ALIAS', assets + 'FILENAME.png'),
     star: new Img('ALIAS', assets + 'FILENAME.png'),
@@ -19,23 +26,21 @@ const imgs = {
     bomb: new Img('ALIAS', assets + 'FILENAME.png'),
 }
 
-const player = new Player(new SpriteSheet('ALIAS', assets + 'FILENAME.png', new Frame(WIDTH,HEIGHT)))
-const sceneA = new Scene(preload, create, update)
-
 function preload()
 {
+    activeScene = this
     Object.values(imgs).forEach(value => {
-        value.preload(this)
+        value.preload(activeScene)
     })
-    player.preload(this)
+    player.preload(activeScene)
 }
 
 function create()
 {
     Object.values(imgs).forEach(value => {
-        value.create(this, view.centerX(), view.centerY())
+        value.create(activeScene, view.centerX(), view.centerY())
     })
-    player.create(view, this)
+    player.create(view, activeScene)
 
 }
 
@@ -44,5 +49,5 @@ function update()
     
 }
 
-const config = new Config(view, physics.platformer, sceneA)
-const game = new Phaser.Game(config)
+config = new Config(view, physics.platformer, sceneA)
+game = new Phaser.Game(config)
