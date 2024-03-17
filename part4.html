@@ -26,7 +26,6 @@
             }
         },
         scene: {
-            alias: "phaserDemoScene",
             preload: preload,
             create: create,
             update: update
@@ -49,7 +48,8 @@
     function create ()
     {
         this.add.image(400, 300, 'sky');
-
+        
+        console.log('this in part4:', this)
         platforms = this.physics.add.staticGroup();
 
         platforms.create(400, 568, 'ground').setScale(2).refreshBody();
