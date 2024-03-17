@@ -39,8 +39,11 @@ function preload() {
 }
 
 function create() {
-    elements.sky.create(activeScene, view.centerX(), view.centerY())
-    elements.star.create(activeScene, view.centerX(), view.centerY())
+    const sky = elements.sky
+    const star = elements.star
+
+    sky.create(activeScene, view.centerX(), view.centerY())
+    // star.create(activeScene, view.centerX(), view.centerY())
 
     console.log('this in part1b:', this)
     platforms = this.physics.add.staticGroup()
