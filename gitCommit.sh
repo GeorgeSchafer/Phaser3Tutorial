@@ -1,6 +1,6 @@
 #!/bin/bash
 
-read message -r -s "Enter commit message: "
+read -r -sp  "Enter commit message:" message
 git add .
 git commit -m "$message"
 git push
