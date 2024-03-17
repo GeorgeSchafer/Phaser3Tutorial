@@ -3,7 +3,7 @@
 <head> 
     <meta charset="UTF-8" />
     <title>Making your first Phaser 3 Game - Part 10</title>
-    <script src="//cdn.jsdelivr.net/npm/phaser@3.1.1/dist/phaser.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.1.1/dist/phaser./js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -42,14 +42,15 @@ var gameOver = false;
 var scoreText;
 
 var game = new Phaser.Game(config);
+const assets = 'js/assets/';
 
 function preload ()
 {
-    this.load.image('sky', 'src/games/firstgame/assets/sky.png');
-    this.load.image('ground', 'src/games/firstgame/assets/platform.png');
-    this.load.image('star', 'src/games/firstgame/assets/star.png');
-    this.load.image('bomb', 'src/games/firstgame/assets/bomb.png');
-    this.load.spritesheet('dude', 'src/games/firstgame/assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+    this.load.image('sky', assets + 'sky.png');
+    this.load.image('ground', assets + 'platform.png');
+    this.load.image('star', assets + 'star.png');
+    this.load.image('bomb', assets + 'bomb.png');
+    this.load.spritesheet('dude', assets + 'dude.png', { frameWidth: 32, frameHeight: 48 });
 }
 
 function create ()
