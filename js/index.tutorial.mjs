@@ -28,10 +28,10 @@ config.scene = {
 const game = new Phaser.Game(config)
 const assets = '../js/assets/'
 const elements = {
-    sky: new Img('ALIAS', assets + 'FILENAME'),
-    star: new Img('ALIAS', assets + 'FILENAME'),
-    platform: new Platform(new Img('ALIAS', assets + 'FILENAME')),
-    player: new PlatformerPlayer(new SpriteSheet('ALIAS', assets + 'FILENAME', new Frame(WIDTH, HEIGHT))),
+    sky: new Img('sky', assets + 'sky.png'),
+    star: new Img('star', assets + 'star.png'),
+    platform: new Platform(new Img('platform', assets + 'platform.png')),
+    player: new PlatformerPlayer(new SpriteSheet('dude', assets + 'dude.png', new Frame(32, 48))),
 }
 
 function preload() {
@@ -42,9 +42,14 @@ function preload() {
 }
 
 function create() {
+    const sky = elements.sky
+    const star = elements.star
+    const platform = elements.platform
     const player = elements.player
     
+    sky.create(activeScene, view.centerX(), view.centerY())
     platform.create(activeScene)
+
     player.create(activeScene, playerSprite)
 
     activeScene.physics.add.collider(player.get('physicsGroup'), platform.get('physicsGroup'))
