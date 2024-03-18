@@ -2,6 +2,9 @@ import {
     Config,
     View,
     Player,
+    Position,
+    Score,
+    Spread,
     Typeface,
     Frame,
     SquareFrame,
@@ -17,11 +20,10 @@ import {
 
 let activeScene
 let stars
+const spread = new Spread(12, 0, 70)
 let bombs
 
-const scoreTypeface = new Typeface(32, '#000')
-let scoreText
-let score = 0
+const scoreDisplay = new Score('score: ', 0, 10, new Typeface(32, '#000'), new Position(16, 16))
 
 let playerSprite
 let cursors
@@ -45,7 +47,7 @@ const elements = {
 
 function preload() {
     activeScene = this
-    for(let [key] of Object.entries(elements)){
+    for (let [key] of Object.entries(elements)) {
         elements[key].preload(activeScene)
     }
 }
@@ -55,11 +57,11 @@ function create() {
     const star = elements.star
     const platform = elements.platform
     const player = elements.player
-    
+
     sky.create(activeScene, view.centerX(), view.centerY())
     platform.create(activeScene)
 
-    player.create(activeScene, playerSprite)
+    player.create(activeScene, player.get('physicsGroup'))
 
     activeScene.physics.add.collider(player.get('physicsGroup'), platform.get('physicsGroup'))
     cursors = this.input.keyboard.createCursorKeys()
@@ -67,7 +69,7 @@ function create() {
     stars = this.physics.add.group({
         key: star.get('alias'),
         repeat: 11,
-        setXY: { x: 12, y: 0, stepX: 70 }
+        setXY: spread
     })
 
     stars.children.iterate(function (child) {
@@ -77,7 +79,7 @@ function create() {
     this.physics.add.collider(stars, platform.get('physicsGroup'))
     this.physics.add.overlap(player.get('physicsGroup'), stars, collectStar, null, this)
 
-    scoreText = activeScene.add.text(16, 16, `score: ${score}`, scoreTypeface.transform())
+    scoreDisplay.create(activeScene)
 
     bombs = this.physics.add.group();
 
@@ -87,15 +89,12 @@ function create() {
 
 }
 
-function collectStar (player, star)
-{
+function collectStar(player, star) {
     star.disableBody(true, true)
 
-    score += 10
-    scoreText.setText('Score: ' + score)
+    scoreDisplay.increment()
 
-    if (stars.countActive(true) === 0)
-    {
+    if (stars.countActive(true) === 0) {
         stars.children.iterate(function (child) {
 
             child.enableBody(true, child.x, 0, true, true)
@@ -112,8 +111,7 @@ function collectStar (player, star)
 
 }
 
-function hitBomb (player, bomb)
-{
+function hitBomb(player, bomb) {
     this.physics.pause();
 
     player.setTint(0xff0000);
@@ -125,6 +123,5 @@ function hitBomb (player, bomb)
 
 
 function update() {
-    const player = elements.player
-    player.update(cursors)
+    elements.player.update(cursors)
 }
